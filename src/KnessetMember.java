@@ -52,7 +52,8 @@ public class KnessetMember {
     double getLawScore(Law law, int surveyResult){
         if (surveyResult < surveyThreshold){
             return 0;
-        }else {
+        }
+        else {
             double politicalScore = law.politicalValue * this.leaningToPolitical;
             double economyScore = law.economyValue * this.leaningToEconomy;
             double socialScore = law.socialValue * this.leaningToSocial;

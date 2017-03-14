@@ -38,7 +38,8 @@ public class Assembly {
         for (int i=0; i < lawCapacity; i++){
             if (lawArray[i]== law){
                 return i;
-            }else if (lawArray[i] == null){
+            }
+            else if (lawArray[i] == null){
                 lawArray[i]= law;
                 return i;
             }
@@ -88,10 +89,11 @@ public class Assembly {
      * registered, a negative number otherwise.
      */
     int registerKnessetMember(KnessetMember KnessetMember){
-        for (int i=0; i < lawCapacity; i++){
+        for (int i=0; i < maxKnessetMembers; i++){
             if (membersArray[i]== KnessetMember){
                 return i;
-            }else if (membersArray[i] == null){
+            }
+            else if (membersArray[i] == null){
                 membersArray[i]= KnessetMember;
                 return i;
             }
@@ -165,7 +167,7 @@ public class Assembly {
             }
         }
         return maxIndex;
-        }
+    }
 
 
     /**
@@ -180,9 +182,9 @@ public class Assembly {
             int maxLawIndex = getMaxScoreIndex(knessetMember);
             if (maxLawIndex == NEGATIVE){
                 return null;
-            }else return lawArray[maxLawIndex];
-
-            } else return null;
+            }
+            else return lawArray[maxLawIndex];
+        } else return null;
    }
 
 }

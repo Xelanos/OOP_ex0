@@ -1,0 +1,34 @@
+Xelanos
+
+
+                                         README for ex0: Knesset
+
+==============================================================================================================
+                                           =  Description  =
+==============================================================================================================
+
+Law.java - A class that represents a law initiated by a knesset member
+ KnessetMember.java - A class representing a Knesset Member, can support various laws according to his
+ political views.
+ Assemly.java - A class representing an assembly in the knesset where laws are survived discussed
+
+
+==============================================================================================================
+                                             =  Design  =
+==============================================================================================================
+
+Design was pre-given.
+
+==============================================================================================================
+                                       =  Implementation Issues  =
+==============================================================================================================
+
+Since I did not want to change the API given I've let go of encapsulation and used public variables in
+ both KnessetMember and Law classes to keep track of the support each law got.
+ Again, I would've added it to the API, but you've ask to implement the design "as is".
+
+
+==============================================================================================================
+                                        =  Answers to Questions  =
+==============================================================================================================
+
