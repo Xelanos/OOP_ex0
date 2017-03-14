@@ -6,6 +6,10 @@
 public class Assembly {
 
     int lawCapacity, maxLawPerKnessetMember, numberOfCurrentLaws;
+    Law[] lawArray;
+    int NEGATIVE = -1;
+    int maxKnessetMembers = 120;
+    KnessetMember[] membersArray = new KnessetMember[maxKnessetMembers];
 
     /**
      * Creates a new assembly with the given parameters.
@@ -17,6 +21,7 @@ public class Assembly {
         lawCapacity = maxLawCapacity;
         maxLawPerKnessetMember = maxSupportedLawsPerKnessetMember;
         numberOfCurrentLaws = 0;
+        lawArray = new Law[lawCapacity];
 
     }
 
@@ -29,8 +34,16 @@ public class Assembly {
      * added, or if the law was already in the assembly; a negative number otherwise.
      */
     int addLawToAssembly(Law law, int surveyResult){
-        return 1;
-
+        law.surveyResult = surveyResult;
+        for (int i=0; i < lawCapacity; i++){
+            if (lawArray[i]== law){
+                return i;
+            }else if (lawArray[i] == null){
+                lawArray[i]= law;
+                return i;
+            }
+        }
+        return NEGATIVE;
     }
 
 
@@ -40,7 +53,7 @@ public class Assembly {
      * @param newSurveyValue new survey value.
      */
     void updateSurveyResultOfLaw(Law law, int newSurveyValue){
-
+        law.surveyResult = newSurveyValue;
     }
 
 
@@ -49,9 +62,8 @@ public class Assembly {
      * @param lawId The id to check.
      * @return true if the given number is an id of some law in the assembly, false otherwise.
      */
-    boolean isLawIDValid(int lawId){
-        return true;
-
+    boolean isLawIDValid(int lawId) {
+        return lawId >= 0 && lawArray[lawId] != null;
     }
 
 
@@ -61,8 +73,11 @@ public class Assembly {
      * @return a non-negative id number of the given law if he is discussed by this assembly, -1 otherwise.
      */
     int getLawId(Law law){
-        return 1;
-
+        for (int i=0; i < lawCapacity; i++){
+            if (lawArray[i] == law)
+                return i;
+        }
+        return NEGATIVE;
     }
 
 
@@ -73,8 +88,15 @@ public class Assembly {
      * registered, a negative number otherwise.
      */
     int registerKnessetMember(KnessetMember KnessetMember){
-        return 1;
-
+        for (int i=0; i < lawCapacity; i++){
+            if (membersArray[i]== KnessetMember){
+                return i;
+            }else if (membersArray[i] == null){
+                membersArray[i]= KnessetMember;
+                return i;
+            }
+        }
+        return NEGATIVE;
     }
 
 
@@ -84,7 +106,7 @@ public class Assembly {
      * @return  true if the given number is an id of a KnessetMember in the assembly, false otherwise.
      */
     boolean isKnessetMemberIdValid(int KnessetMemberId){
-        return true;
+        return KnessetMemberId >= 0 && membersArray[KnessetMemberId] != null;
 
     }
 
@@ -95,8 +117,11 @@ public class Assembly {
      * @return a non-negative id number of the given KnessetMember if he is registered to this assembly, -1 otherwise.
      */
     int getKnessetMemberId(KnessetMember KnessetMember){
-        return 1;
-
+        for (int i=0; i < maxKnessetMembers; i++){
+            if (membersArray[i]==KnessetMember)
+                return i;
+        }
+        return NEGATIVE;
     }
 
 
@@ -108,9 +133,39 @@ public class Assembly {
      * @return true if the KnessetMember was added successfully, false otherwise.
      */
     boolean supportLaw(int lawId, int KnessetMemberId, int surveyResult){
-        return true;
-
+        if (isLawIDValid(lawId) && isKnessetMemberIdValid(KnessetMemberId)){
+            Law law = lawArray[lawId];
+            KnessetMember knessetMember = membersArray[KnessetMemberId];
+            if (knessetMember.willJoinLaw(law,law.surveyResult)&&
+                    knessetMember.numberOfLawsSupported <= maxLawPerKnessetMember){
+                law.addJoinedKnessetMember();
+                knessetMember.numberOfLawsSupported++;
+                return true;
+            } else return false;
+        } else return false;
     }
+
+    /**
+     * Get the ID of the law with the most score in regards to the respectable KM, out of the laws currently
+     * discussed at the assembly
+     * @param knessetMember KM in which to calculate max score to
+     * @return an ID of the law with the most score in regards to the respectable KM; return -1 if all laws got 0.
+     */
+    int getMaxScoreIndex(KnessetMember knessetMember) {
+        double maxScore = 0;
+        int maxIndex = NEGATIVE;
+        for (int i = 0; i < lawCapacity; i++) {
+            Law law = lawArray[i];
+            if (law == null)
+                break;
+            double lawScore = knessetMember.getLawScore(law, law.surveyResult);
+            if (lawScore > maxScore) {
+                maxScore = lawScore;
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+        }
 
 
     /**
@@ -119,8 +174,15 @@ public class Assembly {
      * @return The best law to match the KnessetMember preferences. Null if there aren't any (case all laws get a zero score).
      * available.
      */
-//    Law suggestLawToKnessetMember(int KnessetMemberId){
-//
-//    }
+    Law suggestLawToKnessetMember(int KnessetMemberId){
+        if (isKnessetMemberIdValid(KnessetMemberId)){
+            KnessetMember knessetMember = membersArray[KnessetMemberId];
+            int maxLawIndex = getMaxScoreIndex(knessetMember);
+            if (maxLawIndex == NEGATIVE){
+                return null;
+            }else return lawArray[maxLawIndex];
+
+            } else return null;
+   }
 
 }

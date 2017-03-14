@@ -8,6 +8,7 @@ public class KnessetMember {
     String firstName, lastName;
     double leaningToSocial, leaningToEconomy, leaningToPolitical;
     int surveyThreshold;
+    int numberOfLawsSupported;
 
     /**
      * Creates a new KnessetMember with the given characteristics.
@@ -26,6 +27,7 @@ public class KnessetMember {
         leaningToEconomy = economyTendency;
         leaningToPolitical = politicalTendency;
         surveyThreshold = knessetMemberSurveyThreshold;
+        numberOfLawsSupported = 0;
     }
 
 

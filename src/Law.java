@@ -10,6 +10,7 @@ class Law {
     int yearOfPublication, socialValue, economyValue, politicalValue;
     KnessetMember initiator;
     int numberOfSupporters;
+    int surveyResult;
    /*----=  Constructors  =-----*/
 
     /**
@@ -31,7 +32,8 @@ class Law {
         socialValue = lawSocialValue;
         economyValue = lawEconomyValue;
         politicalValue = lawPoliticalValue;
-        numberOfSupporters++; // gets the support of member who initiated the law automatically
+        numberOfSupporters = 1; // gets the support of member who initiated the law automatically
+        lawInitiator.numberOfLawsSupported++;
     }
 
    /*----=  Instance Methods  =-----*/
