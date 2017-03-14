@@ -1,10 +1,10 @@
-Xelanos
+xelanos
 
 
-                                         README for ex0: Knesset
+                                        README for ex0: Knesset
 
 ==============================================================================================================
-                                           =  Description  =
+                                             Description
 ==============================================================================================================
 
 Law.java - A class that represents a law initiated by a knesset member
@@ -14,21 +14,22 @@ Law.java - A class that represents a law initiated by a knesset member
 
 
 ==============================================================================================================
-                                             =  Design  =
+                                                Design
 ==============================================================================================================
 
 Design was pre-given.
 
 ==============================================================================================================
-                                       =  Implementation Issues  =
+                                          Implementation Issues
 ==============================================================================================================
 
 Since I did not want to change the API given I've let go of encapsulation and used public variables in
  both KnessetMember and Law classes to keep track of the support each law got.
  Again, I would've added it to the API, but you've ask to implement the design "as is".
+ One other option to implement it was with more arrays at the Assembly class
 
 
 ==============================================================================================================
-                                        =  Answers to Questions  =
+                                           Answers to Questions
 ==============================================================================================================
 

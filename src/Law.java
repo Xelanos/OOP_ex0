@@ -23,8 +23,8 @@ class Law {
      * @param lawEconomyValue The dramatic value of the book.
      * @param lawPoliticalValue The educational value of the book.
      */
-    Law(String lawTitle, KnessetMember lawInitiator, String lawParty, int lawYearOfPublication, int lawSocialValue, int lawEconomyValue,
-        int lawPoliticalValue){
+    Law(String lawTitle, KnessetMember lawInitiator, String lawParty,
+        int lawYearOfPublication, int lawSocialValue, int lawEconomyValue, int lawPoliticalValue){
         title = lawTitle;
         initiator = lawInitiator;
         partyOfInitiator = lawParty;
@@ -62,7 +62,7 @@ class Law {
      * remove a single MK support. If only 1 MK supports the law, do nothing.
      */
     void subJoinedKnessetMember(){
-        if (numberOfSupporters>1){
+        if (numberOfSupporters > 1){
             numberOfSupporters--;
         }
     }

@@ -9,6 +9,7 @@ public class Assembly {
     Law[] lawArray;
     int NEGATIVE = -1;
     int maxKnessetMembers = 120;
+    int currentNumberOfMembers;
     KnessetMember[] membersArray = new KnessetMember[maxKnessetMembers];
 
     /**
@@ -22,6 +23,7 @@ public class Assembly {
         maxLawPerKnessetMember = maxSupportedLawsPerKnessetMember;
         numberOfCurrentLaws = 0;
         lawArray = new Law[lawCapacity];
+        currentNumberOfMembers = 0;
 
     }
 
@@ -64,7 +66,12 @@ public class Assembly {
      * @return true if the given number is an id of some law in the assembly, false otherwise.
      */
     boolean isLawIDValid(int lawId) {
-        return lawId >= 0 && lawArray[lawId] != null;
+        if (lawId >= 0 && lawId < lawCapacity){
+            if (lawArray[lawId] != null){
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -89,14 +96,10 @@ public class Assembly {
      * registered, a negative number otherwise.
      */
     int registerKnessetMember(KnessetMember KnessetMember){
-        for (int i=0; i < maxKnessetMembers; i++){
-            if (membersArray[i]== KnessetMember){
-                return i;
-            }
-            else if (membersArray[i] == null){
-                membersArray[i]= KnessetMember;
-                return i;
-            }
+        if (currentNumberOfMembers < maxKnessetMembers){
+            membersArray[currentNumberOfMembers] = KnessetMember;
+            currentNumberOfMembers++;
+            return currentNumberOfMembers - 1;
         }
         return NEGATIVE;
     }
@@ -108,8 +111,12 @@ public class Assembly {
      * @return  true if the given number is an id of a KnessetMember in the assembly, false otherwise.
      */
     boolean isKnessetMemberIdValid(int KnessetMemberId){
-        return KnessetMemberId >= 0 && membersArray[KnessetMemberId] != null;
-
+        if (KnessetMemberId >= 0 && KnessetMemberId < maxKnessetMembers){
+            if (membersArray[KnessetMemberId] != null){
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -138,13 +145,14 @@ public class Assembly {
         if (isLawIDValid(lawId) && isKnessetMemberIdValid(KnessetMemberId)){
             Law law = lawArray[lawId];
             KnessetMember knessetMember = membersArray[KnessetMemberId];
-            if (knessetMember.willJoinLaw(law,law.surveyResult)&&
+            if (knessetMember.willJoinLaw(law, surveyResult)&&
                     knessetMember.numberOfLawsSupported <= maxLawPerKnessetMember){
                 law.addJoinedKnessetMember();
                 knessetMember.numberOfLawsSupported++;
                 return true;
-            } else return false;
-        } else return false;
+            }
+        }
+        return false;
     }
 
     /**

@@ -54,9 +54,9 @@ public class KnessetMember {
             return 0;
         }
         else {
-            double politicalScore = law.politicalValue * this.leaningToPolitical;
-            double economyScore = law.economyValue * this.leaningToEconomy;
-            double socialScore = law.socialValue * this.leaningToSocial;
+            double politicalScore = law.politicalValue * leaningToPolitical;
+            double economyScore = law.economyValue * leaningToEconomy;
+            double socialScore = law.socialValue * leaningToSocial;
             return politicalScore + economyScore + socialScore;
         }
 
@@ -69,8 +69,8 @@ public class KnessetMember {
      * @return true of this KnessetMember will join the given law, false otherwise.
      */
     boolean willJoinLaw(Law law, int surveyResult){
-        double lawScore = getLawScore(law,surveyResult);
-        return lawScore >= knessetMembersEnthusiasmThreshold;
+        double lawScore = getLawScore(law, surveyResult);
+        return lawScore > knessetMembersEnthusiasmThreshold;
     }
 
 }
