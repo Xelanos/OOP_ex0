@@ -53,14 +53,16 @@ class Law {
      * Adds another MK to support this law
      */
     void addJoinedKnessetMember(){
-        // your implementation here
+        numberOfSupporters++;
     }
 
     /**
      * remove a single MK support. If only 1 MK supports the law, do nothing.
      */
     void subJoinedKnessetMember(){
-        // your implementation here
+        if (numberOfSupporters>1){
+            numberOfSupporters--;
+        }
     }
 
     /**
@@ -68,8 +70,7 @@ class Law {
      * @return number of Knesset Members that are currently support this law
      */
     int getCurrentNumberOfKnessetMembers(){
-        // your implementation here
-        return 1;
+        return numberOfSupporters;
     }
 
 
