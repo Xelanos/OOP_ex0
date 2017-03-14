@@ -6,7 +6,10 @@
  */
 class Law {
 
-  
+    String title, partyOfInitiator;
+    int yearOfPublication, socialValue, economyValue, politicalValue;
+    KnessetMember initiator;
+    int numberOfSupporters;
    /*----=  Constructors  =-----*/
 
     /**
@@ -21,7 +24,14 @@ class Law {
      */
     Law(String lawTitle, KnessetMember lawInitiator, String lawParty, int lawYearOfPublication, int lawSocialValue, int lawEconomyValue,
         int lawPoliticalValue){
-        // your implementation here
+        title = lawTitle;
+        initiator = lawInitiator;
+        partyOfInitiator = lawParty;
+        yearOfPublication = lawYearOfPublication;
+        socialValue = lawSocialValue;
+        economyValue = lawEconomyValue;
+        politicalValue = lawPoliticalValue;
+        numberOfSupporters++; // gets the support of member who initiated the law automatically
     }
 
    /*----=  Instance Methods  =-----*/
@@ -59,6 +69,7 @@ class Law {
      */
     int getCurrentNumberOfKnessetMembers(){
         // your implementation here
+        return 1;
     }
 
 
